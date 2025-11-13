@@ -1,0 +1,348 @@
+document.addEventListener('DOMContentLoaded', function() {
+(function() {
+const surahData = []; // Akan diisi dari API
+const BOOKMARK_STORAGE_KEY = 'ilmu_sai_aliimran_bookmarks';
+
+const ayahListContainer = document.getElementById('ilmu-sai-ayah-list');
+const audioPlayer = document.getElementById('ilmu-sai-audio-player');
+const playPauseAllBtn = document.getElementById('ilmu-sai-play-pause-all');
+const autoplayButton = document.getElementById('ilmu-sai-autoplay-toggle-btn');
+const loadingIndicator = document.getElementById('ilmu-sai-loading');
+const controlsContainer = document.querySelector('.ilmu-sai-controls');
+
+let currentAyahIndex = -1;
+let isPlaying = false;
+let isAutoplayEnabled = true;
+let jsonLdInjected = false;
+
+// ====== FETCH DATA SURAH (AR + BM + RUMI) ======
+async function fetchSurahData() {
+try {
+// Surah 3: Ali 'Imran
+const response = await fetch('https://api.alquran.cloud/v1/surah/3/editions/ar.alafasy,ms.basmeih,en.transliteration');
+if (!response.ok) throw new Error('Network response was not ok');
+const data = await response.json();
+
+if (loadingIndicator) loadingIndicator.style.display = 'none';
+if (controlsContainer) controlsContainer.style.display = 'flex';
+
+const arabicAyahs = data.data[0].ayahs;
+const malayAyahs = data.data[1].ayahs;
+const rumiAyahs = data.data[2].ayahs;
+
+for (let i = 0; i < arabicAyahs.length; i++) {
+surahData.push({
+number: arabicAyahs[i].numberInSurah,
+arabic: arabicAyahs[i].text,
+translation: malayAyahs[i].text,
+transliteration: rumiAyahs[i] ? rumiAyahs[i].text : '',
+audio: arabicAyahs[i].audio
+});
+}
+renderAyahs();
+injectAyahJsonLd();
+} catch (error) {
+if (loadingIndicator) {
+loadingIndicator.innerHTML = '<p style="color:red;">Maaf, gagal memuatkan data Surah Ali Imran. Sila cuba lagi nanti.</p>';
+}
+console.error('Error fetching Surah Ali Imran data:', error);
+}
+}
+
+// ====== RENDER UI AYAT ======
+function renderAyahs() {
+if (!ayahListContainer) return;
+ayahListContainer.innerHTML = '';
+
+surahData.forEach((ayah, index) => {
+const ayahDiv = document.createElement('div');
+ayahDiv.className = 'ilmu-sai-ayah';
+ayahDiv.id = 'ilmu-sai-ayah-' + ayah.number;
+
+ayahDiv.innerHTML = `
+<div class="ilmu-sai-ayah-header">
+<span class="ilmu-sai-ayah-number">Ali Imran : Ayat ${ayah.number}</span>
+<button class="ilmu-sai-play-button" data-index="${index}" aria-label="Mainkan Ayat ${ayah.number}">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+xmlns="http://www.w3.org/2000/svg">
+<path d="M8 5V19L19 12L8 5Z" fill="#249749"/>
+</svg>
+</button>
+</div>
+<p class="ilmu-sai-arabic">${ayah.arabic}</p>
+<p class="ilmu-sai-transliteration">${ayah.transliteration || ''}</p>
+<p class="ilmu-sai-translation">${ayah.translation}</p>
+<div class="ilmu-sai-ayah-actions">
+<button class="ilmu-sai-action-btn ilmu-sai-copy-btn" data-index="${index}" type="button">Copy</button>
+<button class="ilmu-sai-action-btn ilmu-sai-share-btn" data-index="${index}" type="button">Share</button>
+<button class="ilmu-sai-action-btn ilmu-sai-bookmark-btn" data-index="${index}" type="button" aria-pressed="false">Bookmark</button>
+</div>
+`;
+ayahListContainer.appendChild(ayahDiv);
+});
+
+// Listeners play per ayat
+document.querySelectorAll('.ilmu-sai-play-button').forEach(button => {
+button.addEventListener('click', function() {
+const index = parseInt(this.getAttribute('data-index'), 10);
+playAyah(index);
+});
+});
+
+attachActionButtons();
+updateBookmarkUI();
+}
+
+// ====== AUDIO PLAYBACK ======
+function playAyah(index) {
+if (index >= surahData.length || index < 0) {
+stopPlayback();
+return;
+}
+currentAyahIndex = index;
+const ayahData = surahData[index];
+
+audioPlayer.src = ayahData.audio;
+audioPlayer.play().catch(e => console.error('Audio playback failed:', e));
+
+isPlaying = true;
+updateUIForPlayback();
+}
+
+function stopPlayback() {
+try {
+audioPlayer.pause();
+audioPlayer.currentTime = 0;
+} catch (e) {}
+isPlaying = false;
+currentAyahIndex = -1;
+updateUIForPlayback();
+}
+
+function updateUIForPlayback() {
+if (playPauseAllBtn) {
+playPauseAllBtn.textContent = isPlaying ? 'Hentikan Bacaan' : 'Mula Bacaan';
+}
+
+const ayahDivs = document.querySelectorAll('.ilmu-sai-ayah');
+ayahDivs.forEach((div, index) => {
+const buttonPath = div.querySelector('.ilmu-sai-play-button svg path');
+if (index === currentAyahIndex && isPlaying) {
+div.classList.add('ilmu-sai-playing');
+if (buttonPath) {
+// ikon pause
+buttonPath.setAttribute('d', 'M6 19H10V5H6V19ZM14 5V19H18V5H14Z');
+}
+div.scrollIntoView({ behavior: 'smooth', block: 'center' });
+} else {
+div.classList.remove('ilmu-sai-playing');
+if (buttonPath) {
+// ikon play
+buttonPath.setAttribute('d', 'M8 5V19L19 12L8 5Z');
+}
+}
+});
+}
+
+// ====== AUTOPLAY BUTTON ======
+function updateAutoplayButtonUI() {
+if (!autoplayButton) return;
+autoplayButton.textContent = isAutoplayEnabled ? 'AutoPlay: ON' : 'AutoPlay: OFF';
+autoplayButton.classList.toggle('ilmu-sai-autoplay-off', !isAutoplayEnabled);
+autoplayButton.setAttribute('aria-pressed', isAutoplayEnabled ? 'true' : 'false');
+}
+
+if (autoplayButton) {
+autoplayButton.addEventListener('click', function() {
+isAutoplayEnabled = !isAutoplayEnabled;
+updateAutoplayButtonUI();
+});
+updateAutoplayButtonUI();
+}
+
+if (playPauseAllBtn) {
+playPauseAllBtn.addEventListener('click', function() {
+if (isPlaying) {
+stopPlayback();
+} else {
+playAyah(0);
+}
+});
+}
+
+if (audioPlayer) {
+audioPlayer.addEventListener('ended', function() {
+if (isAutoplayEnabled && currentAyahIndex < surahData.length - 1) {
+playAyah(currentAyahIndex + 1);
+} else {
+stopPlayback();
+}
+});
+}
+
+// ====== COPY / SHARE / BOOKMARK ======
+function attachActionButtons() {
+// Copy
+document.querySelectorAll('.ilmu-sai-copy-btn').forEach(btn => {
+btn.addEventListener('click', function() {
+const index = parseInt(this.getAttribute('data-index'), 10);
+copyAyah(index);
+});
+});
+// Share
+document.querySelectorAll('.ilmu-sai-share-btn').forEach(btn => {
+btn.addEventListener('click', function() {
+const index = parseInt(this.getAttribute('data-index'), 10);
+shareAyah(index);
+});
+});
+// Bookmark
+document.querySelectorAll('.ilmu-sai-bookmark-btn').forEach(btn => {
+btn.addEventListener('click', function() {
+const index = parseInt(this.getAttribute('data-index'), 10);
+toggleBookmark(index);
+});
+});
+}
+
+function copyAyah(index) {
+const ayah = surahData[index];
+if (!ayah) return;
+const text = [
+`Surah Ali Imran, Ayat ${ayah.number}`,
+'',
+ayah.arabic,
+ayah.transliteration || '',
+'',
+ayah.translation
+].join('\n');
+
+if (navigator.clipboard && navigator.clipboard.writeText) {
+navigator.clipboard.writeText(text).catch(err => {
+console.error('Clipboard error:', err);
+fallbackCopy(text);
+});
+} else {
+fallbackCopy(text);
+}
+}
+
+function fallbackCopy(text) {
+try {
+const ta = document.createElement('textarea');
+ta.value = text;
+ta.style.position = 'fixed';
+ta.style.left = '-9999px';
+document.body.appendChild(ta);
+ta.select();
+document.execCommand('copy');
+document.body.removeChild(ta);
+} catch (e) {
+console.error('Fallback copy failed:', e);
+}
+}
+
+function shareAyah(index) {
+const ayah = surahData[index];
+if (!ayah) return;
+const baseUrl = window.location.href.split('#')[0];
+const url = baseUrl + '#ilmu-sai-ayah-' + ayah.number;
+const title = 'Surah Ali Imran Ayat ' + ayah.number;
+const text = ayah.translation;
+
+if (navigator.share) {
+navigator.share({ title: title, text: text, url: url }).catch(err => {
+console.error('Web Share failed:', err);
+});
+} else if (navigator.clipboard && navigator.clipboard.writeText) {
+navigator.clipboard.writeText(url)
+.then(() => { alert('Link ayat telah disalin ke Clipboard.'); })
+.catch(err => console.error('Clipboard share error:', err));
+} else {
+alert('Share link ini:\n' + url);
+}
+}
+
+function loadBookmarks() {
+try {
+const raw = localStorage.getItem(BOOKMARK_STORAGE_KEY);
+if (!raw) return [];
+const parsed = JSON.parse(raw);
+return Array.isArray(parsed) ? parsed : [];
+} catch (e) {
+console.error('Error reading bookmarks:', e);
+return [];
+}
+}
+
+function saveBookmarks(list) {
+try {
+localStorage.setItem(BOOKMARK_STORAGE_KEY, JSON.stringify(list));
+} catch (e) {
+console.error('Error saving bookmarks:', e);
+}
+}
+
+function toggleBookmark(index) {
+const ayah = surahData[index];
+if (!ayah) return;
+const ayahNumber = ayah.number;
+let list = loadBookmarks();
+
+if (list.includes(ayahNumber)) {
+list = list.filter(n => n !== ayahNumber);
+} else {
+list.push(ayahNumber);
+}
+saveBookmarks(list);
+updateBookmarkUI();
+}
+
+function updateBookmarkUI() {
+const list = loadBookmarks();
+const ayahDivs = document.querySelectorAll('.ilmu-sai-ayah');
+
+ayahDivs.forEach((div, index) => {
+const ayah = surahData[index];
+if (!ayah) return;
+const isBookmarked = list.includes(ayah.number);
+div.classList.toggle('ilmu-sai-bookmarked', isBookmarked);
+const btn = div.querySelector('.ilmu-sai-bookmark-btn');
+if (btn) {
+btn.textContent = isBookmarked ? 'Bookmarked' : 'Bookmark';
+btn.setAttribute('aria-pressed', isBookmarked ? 'true' : 'false');
+btn.classList.toggle('ilmu-sai-bookmark-active', isBookmarked);
+}
+});
+}
+
+// ====== JSON-LD PER AYAT (SEO) ======
+function injectAyahJsonLd() {
+if (jsonLdInjected || !surahData.length) return;
+jsonLdInjected = true;
+try {
+const pageUrl = window.location.href.split('#')[0];
+const itemList = {
+"@context": "https://schema.org",
+"@type": "ItemList",
+"name": "Senarai Ayat Surah Ali Imran dengan Audio, Bacaan Rumi & Terjemahan Melayu",
+"itemListElement": surahData.map((ayah, idx) => ({
+"@type": "ListItem",
+"position": idx + 1,
+"url": pageUrl + '#ilmu-sai-ayah-' + ayah.number,
+"name": 'Surah Ali Imran Ayat ' + ayah.number
+}))
+};
+const script = document.createElement('script');
+script.type = 'application/ld+json';
+script.text = JSON.stringify(itemList);
+document.head.appendChild(script);
+} catch (e) {
+console.error('Failed to inject ayah JSON-LD:', e);
+}
+}
+
+// MULA
+fetchSurahData();
+})();
+});
