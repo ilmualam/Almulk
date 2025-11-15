@@ -1,2 +1,2 @@
-# Almulk
-All about Al-Mulk
+# Surah-AlQuran
+All about Quran
