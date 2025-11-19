@@ -186,7 +186,7 @@
   ];
   
   // Audio base URL
-  const AUDIO_BASE = 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/';
+  const AUDIO_BASE = 'https://api.alquran.cloud/v1/surah/67/editions/ar.alafasy,ms.basmeih,en.transliteration';
   const SURAH_START = 5545; // First ayat of Al-Mulk in global numbering
   
   // State
