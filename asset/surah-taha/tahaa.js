@@ -413,7 +413,7 @@
     }
   }
 
-  function handleVerseActionClick(e) {
+    function handleVerseActionClick(e) {
     const btn = e.target.closest(".action-btn");
     if (!btn) return;
     const card = e.target.closest(".verse-card");
@@ -421,6 +421,18 @@
     const ayahNum = Number(card.dataset.ayah);
     if (!ayahNum) return;
 
+    // BUTANG PLAY/PAUSE PER AYAT
+    if (btn.classList.contains("js-play-ayah")) {
+      // Jika sedang main ayat yang sama, jadikan butang ini sebagai toggle pause/play
+      if (isPlaying && currentAyah === ayahNum && audio) {
+        togglePlayPause();
+      } else {
+        playAyah(ayahNum);
+      }
+      return;
+    }
+
+    // BUTANG SEDIA ADA
     if (btn.classList.contains("js-copy-ayah")) {
       copyAyahText(ayahNum);
     } else if (btn.classList.contains("js-bookmark-ayah")) {
@@ -452,7 +464,7 @@
     }
   }
 
-  function buildVerseCard(index, arab, translit, malay) {
+    function buildVerseCard(index, arab, translit, malay) {
     const article = document.createElement("article");
     const ayahNum = index + 1;
     article.className = "verse-card";
@@ -460,22 +472,21 @@
     article.id = "ayat-" + ayahNum;
 
     article.innerHTML =
-      '<div class="verse-number">Ayat ' +
-      ayahNum +
-      "</div>" +
-      '<div class="verse-arabic">' +
-      arab +
-      "</div>" +
+      '<div class="verse-number">Ayat ' + ayahNum + "</div>" +
+      '<div class="verse-arabic">' + arab + "</div>" +
       (translit
         ? '<div class="verse-transliteration">' + translit + "</div>"
         : "") +
-      '<div class="verse-translation">' +
-      malay +
-      "</div>" +
+      '<div class="verse-translation">' + malay + "</div>" +
       '<div class="verse-actions">' +
-      '<button type="button" class="action-btn js-copy-ayah">Copy</button>' +
-      '<button type="button" class="action-btn js-bookmark-ayah">Bookmark</button>' +
-      '<button type="button" class="action-btn js-share-ayah">Share</button>' +
+        // BUTANG PLAY/PAUSE PER AYAT – BARU
+        '<button type="button" class="action-btn js-play-ayah" aria-label="Mainkan ayat ' + ayahNum + '">' +
+          '<span class="play-label">▶ Main</span>' +
+        "</button>" +
+        // BUTANG SEDIA ADA
+        '<button type="button" class="action-btn js-copy-ayah">Copy</button>' +
+        '<button type="button" class="action-btn js-bookmark-ayah">Bookmark</button>' +
+        '<button type="button" class="action-btn js-share-ayah">Share</button>' +
       "</div>";
 
     return article;
