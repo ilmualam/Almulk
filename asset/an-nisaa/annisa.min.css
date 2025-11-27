@@ -1,0 +1,407 @@
+/* ===========================
+   Surah An-Nisa Tool Styles
+   Fokus: #surah-an-nisa-container + #toast
+   =========================== */
+
+/* Elak theme override basic */
+#surah-an-nisa-container,
+#surah-an-nisa-container * {
+  box-sizing: border-box;
+}
+
+#surah-an-nisa-container {
+  --an-nisa-brand: #249749;
+  --an-nisa-brand-dark: #0c3803;
+  --an-nisa-bg: #f5faf7;
+  --an-nisa-border: #e2e8f0;
+  --an-nisa-arabic-font: 28px;
+  --an-nisa-translation-font: 16px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", Roboto, sans-serif;
+  color: #1a1a1a;
+  background: transparent;
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto 24px;
+  padding: 12px 8px;
+}
+
+/* HEADER */
+#surah-an-nisa-container .surah-header {
+  background: radial-gradient(#32b36a 0, #249749 45%, #0c3803 100%);
+  border-radius: 12px;
+  padding: 16px 18px;
+  border: 1px solid var(--an-nisa-border);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  margin-bottom: 16px;
+}
+
+#surah-an-nisa-container .surah-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#surah-an-nisa-container .surah-title {
+  font-size: 2rem;
+  text-align:center;
+  margin: 0;
+  color: #fff;
+}
+
+#surah-an-nisa-container .surah-title-malay {
+  font-size: 1.1rem;
+  text-align:center;
+  margin: 0;
+  color: #fff;
+}
+
+#surah-an-nisa-container .surah-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: #fff;
+  text-align:center;
+}
+
+#surah-an-nisa-container .surah-meta .meta-item {
+  background: #558e65;
+  border:0.5px solid #0c3803;
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+/* AUDIO CONTROLS (main bar) */
+#surah-an-nisa-container .audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 8px 14px;
+  border: 1px solid var(--an-nisa-border);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
+  margin-bottom: 14px;
+  position: sticky;
+  top: 60px;
+  z-index: 5;
+}
+
+#surah-an-nisa-container .control-btn {
+  border: none;
+  border-radius: 999px;
+  background: var(--an-nisa-brand);
+  color: #ffffff;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 18px rgba(36, 151, 73, 0.35);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  flex-shrink: 0;
+}
+
+#surah-an-nisa-container .control-btn:hover {
+  background: var(--an-nisa-brand-dark);
+  transform: scale(1.05);
+  box-shadow: 0 14px 30px rgba(12, 56, 3, 0.35);
+}
+
+#surah-an-nisa-container .control-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+#surah-an-nisa-container .audio-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+#surah-an-nisa-container .audio-progress {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  overflow: hidden;
+}
+
+#surah-an-nisa-container .audio-progress .progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--an-nisa-brand), #16a34a);
+  border-radius: 999px;
+  transition: width 0.15s linear;
+}
+
+#surah-an-nisa-container .audio-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+/* Qari Select */
+#surah-an-nisa-container .qari-select {
+  border-radius: 999px;
+  padding: 6px 10px;
+  border: 1px solid var(--an-nisa-border);
+  font-size: 0.85rem;
+  background: #ffffff;
+  color: #0f172a;
+  max-width: 220px;
+}
+
+/* SETTINGS PANEL */
+#surah-an-nisa-container .settings-panel {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#surah-an-nisa-container .settings-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  border: 1px solid var(--an-nisa-border);
+  background: #ffffff;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: #0f172a;
+}
+
+#surah-an-nisa-container .settings-toggle svg {
+  width: 18px;
+  height: 18px;
+  color: var(--an-nisa-brand);
+}
+
+#surah-an-nisa-container .settings-content {
+  margin-top: 8px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid var(--an-nisa-border);
+  padding: 10px 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+}
+
+#surah-an-nisa-container .setting-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  color: #111827;
+}
+
+#surah-an-nisa-container .setting-row input[type="range"] {
+  flex: 1;
+}
+
+#surah-an-nisa-container .setting-row span {
+  width: 52px;
+  text-align: right;
+}
+
+/* VERSES WRAPPER */
+#surah-an-nisa-container .verses-container {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid var(--an-nisa-border);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+}
+
+/* SINGLE VERSE BLOCK */
+#surah-an-nisa-container .verse {
+  padding: 12px 16px;
+  border-bottom: 1px solid #edf2f7;
+  background: #ffffff;
+  transition: background 0.18s ease, border-left-color 0.18s ease;
+  border-left: 3px solid transparent;
+}
+
+#surah-an-nisa-container .verse:last-child {
+  border-bottom: none;
+}
+
+#surah-an-nisa-container .verse.active {
+  background: var(--an-nisa-bg);
+  border-left-color: var(--an-nisa-brand);
+}
+
+/* Verse header row */
+#surah-an-nisa-container .verse-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+/* Number bubble */
+#surah-an-nisa-container .verse-number {
+  border-radius: 999px;
+  border: none;
+  background: var(--an-nisa-brand);
+  color: #ffffff;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(36, 151, 73, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+#surah-an-nisa-container .verse-number:hover {
+  transform: translateY(-1px) scale(1.03);
+  background: var(--an-nisa-brand-dark);
+  box-shadow: 0 10px 24px rgba(12, 56, 3, 0.4);
+}
+
+/* Verse actions (play/copy/share/bookmark) */
+#surah-an-nisa-container .verse-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#surah-an-nisa-container .verse-action-btn {
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+#surah-an-nisa-container .verse-action-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: #64748b;
+}
+
+#surah-an-nisa-container .verse-action-btn:hover {
+  background: #e5f9ed;
+  transform: translateY(-1px);
+}
+
+#surah-an-nisa-container .verse-bookmark-btn.is-bookmarked svg {
+  fill: #f97316;
+}
+
+/* TEXT: Arabic / transliteration / translation */
+#surah-an-nisa-container .verse-arabic {
+  font-family:"Amiri", serif;
+  font-size: 2rem;
+  line-height: 2;
+  text-align: right;
+  direction: rtl;
+  margin: 4px 0 6px;
+  color: #0c3808;
+}
+
+#surah-an-nisa-container .verse-transliteration {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0 0 4px;
+  font-style: italic;
+  color: #0f5132;
+  background: #d1fae5;
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+
+/* Hide transliteration if setting off (JS set data-show-translit="0") */
+#surah-an-nisa-container[data-show-translit="0"] .verse-transliteration {
+  display: none;
+}
+
+#surah-an-nisa-container .verse-translation {
+  font-size: var(--an-nisa-translation-font);
+  line-height: 1.6;
+  margin: 0;
+  color: #374151;
+}
+
+/* LOADING INDICATOR */
+#surah-an-nisa-container .loading-indicator {
+  margin-top: 16px;
+  padding: 16px;
+  text-align: center;
+  color: var(--an-nisa-brand-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#surah-an-nisa-container .spinner {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 3px solid #e5e7eb;
+  border-top-color: var(--an-nisa-brand);
+  animation: an-nisa-spin 0.9s linear infinite;
+}
+
+@keyframes an-nisa-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* TOAST – guna #toast di luar container */
+#toast.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(200%);
+  background: #111827;
+  color: #f9fafb;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4);
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 9999;
+}
+
+#toast.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  #surah-an-nisa-container {
+    padding: 10px 4px;
+  }
+
+  #surah-an-nisa-container .audio-controls {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  #surah-an-nisa-container .audio-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+}
