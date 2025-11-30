@@ -104,6 +104,18 @@
   // =========================
   //  TOOL STATE
   =========================
+  // Safe localStorage parser
+  function safeParse(key, fallback) {
+    try {
+      const raw = localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : fallback;
+    } catch (e) {
+      console.warn('[Ad-Dhuha] localStorage corrupted for', key, e);
+      return fallback;
+    }
+  }
+
+  // Global State Management
   let currentState = {
     showArabic: true,
     showRumi: true,
@@ -111,11 +123,13 @@
     darkMode: false,
     isPlaying: false,
     currentVerse: 0,
-    progress: JSON.parse(localStorage.getItem('surahAdDhuhaProgress')) || {},
-    bookmarks: JSON.parse(localStorage.getItem('surahAdDhuhaBookmarks')) || []
+    progress: safeParse('surahAdDhuhaProgress', {}),
+    bookmarks: safeParse('surahAdDhuhaBookmarks', [])
   };
 
+  // Audio Management
   let audioElement = new Audio();
+  let audioContext = null;
 
   // =========================
   //  INIT TOOL
@@ -449,17 +463,15 @@
       });
   }
 
-  // =========================
-  //  EXPOSE TO WINDOW (INLINE HANDLERS)
-  // =========================
+// Expose controls globally for inline event handlers
   window.toggleDisplay = toggleDisplay;
-  window.toggleDarkMode = toggleDarkMode;
   window.toggleAudio = toggleAudio;
-  window.playVerse = playVerse;
   window.toggleProgress = toggleProgress;
   window.toggleBookmark = toggleBookmark;
+  window.toggleDarkMode = toggleDarkMode;
   window.resetProgress = resetProgress;
   window.seekAudio = seekAudio;
+  window.playVerse = playVerse;
   window.shareToWhatsApp = shareToWhatsApp;
   window.shareToTelegram = shareToTelegram;
   window.copyLink = copyLink;
