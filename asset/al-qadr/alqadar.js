@@ -176,13 +176,13 @@
           </div>
           <div class="ilmu-alqadr-ayah-controls">
             <button class="ilmu-alqadr-icon-btn play-ayah" data-ayah="${ayah.number}">
-              <span>▶</span> Main
+              <span>▶</span> Play
             </button>
             <button class="ilmu-alqadr-icon-btn bookmark-ayah" data-ayah="${ayah.number}">
-              <span>${isBookmarked ? '★' : '☆'}</span> ${isBookmarked ? 'Tersimpan' : 'Simpan'}
+              <span>${isBookmarked ? '★' : '☆'}</span> ${isBookmarked ? 'Tersimpan' : 'Save'}
             </button>
             <button class="ilmu-alqadr-icon-btn share-ayah" data-ayah="${ayah.number}">
-              <span>⤴</span> Kongsi
+              <span>⤴</span> Share
             </button>
           </div>
         </div>
