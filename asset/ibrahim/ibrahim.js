@@ -86,8 +86,8 @@
         </div>
         
         <!-- Main Content Area -->
-        <div class="sii-content" style="background: white; border-radius: 10px; padding: 20px; max-height: 2000px; overflow-y: auto;">
-          <div id="ayahDisplay" style="min-height: 800px;">
+        <div class="sii-content" style="background: white; border-radius: 10px; padding: 20px; max-height: 1000px; overflow-y: auto;">
+          <div id="ayahDisplay" style="min-height: 400px;">
             <!-- Ayat akan dipaparkan di sini -->
             <div style="text-align: center; padding: 50px;">
               <div class="loader" style="border: 5px solid #f3f3f3; border-top: 5px solid ${CONFIG.colors.primary}; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto;"></div>
