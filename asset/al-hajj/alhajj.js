@@ -60,11 +60,11 @@
         if (document.getElementById('ilm-hajj-styles')) return;
         
         const styles = `
-        .ilm-x-reader{max-width:900px;margin:32px auto;padding:16px;font-family:-apple-system,BlinkMacSystemFont,"Inter",Roboto,sans-serif;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
-        .ilm-x-header{background:linear-gradient(135deg,${CONFIG.colors.primary} 0%,#1a7838 100%);color:#fff;padding:20px;border-radius:8px 8px 0 0;margin:-16px -16px 24px;text-align:center}
+        .ilm-x-reader{max-width:1200px;margin:10px auto;padding:8px;font-family:-apple-system,BlinkMacSystemFont,"Inter",Roboto,sans-serif;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+        .ilm-x-header{background:linear-gradient(135deg,${CONFIG.colors.primary} 0%,#1a7838 100%);color:#fff;padding:10px;border-radius:8px 8px 0 0;margin:-16px -16px 24px;text-align:center}
         .ilm-x-header h2{margin:0 0 8px;font-size:1.5rem;font-weight:700}
         .ilm-x-meta{font-size:0.9rem;opacity:0.95}
-        .ilm-x-controls{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;justify-content:center}
+        .ilm-x-controls{display:flex;gap:12px;margin-bottom:10px;flex-wrap:wrap;}
         .ilm-x-btn{padding:8px 16px;border:none;border-radius:6px;font-size:0.9rem;cursor:pointer;transition:all 0.3s;font-weight:600;display:inline-flex;align-items:center;gap:6px}
         .ilm-x-btn-primary{background:${CONFIG.colors.primary};color:#fff}
         .ilm-x-btn-primary:hover{background:#1a7838;transform:translateY(-2px)}
@@ -202,10 +202,10 @@
                         id="ilm-search-input"
                     >
                     <button class="ilm-x-btn ilm-x-btn-secondary" onclick="ilmHajjReader.showBookmarks()">
-                        ⭐ Simpanan (${state.bookmarks.length})
+                        ⭐ Bookmark (${state.bookmarks.length})
                     </button>
                     <button class="ilm-x-btn ilm-x-btn-secondary" onclick="ilmHajjReader.stopAllAudio()">
-                        ⏸️ Hentikan Audio
+                        ⏸️ Stop Audio
                     </button>
                 </div>
 
@@ -260,13 +260,13 @@
 
                 <div class="ilm-x-ayah-actions">
                     <button class="ilm-x-action-btn ${isPlaying ? 'ilm-x-active' : ''}" onclick="ilmHajjReader.playAudio(${ayah.numberInSurah}, '${ayah.audio}')">
-                        ${isPlaying ? '⏸️ Henti' : '▶️ Dengar'}
+                        ${isPlaying ? '⏸️ Stop' : '▶️ Play'}
                     </button>
                     <button class="ilm-x-action-btn" onclick="ilmHajjReader.copyAyah(${ayah.numberInSurah})">
-                        📋 Salin
+                        📋 Copy
                     </button>
                     <button class="ilm-x-action-btn" onclick="ilmHajjReader.shareAyah(${ayah.numberInSurah})">
-                        🔗 Kongsi
+                        🔗 Share
                     </button>
                     <button class="ilm-x-action-btn ${isBookmarked ? 'ilm-x-active' : ''}" onclick="ilmHajjReader.toggleBookmark(${ayah.numberInSurah})">
                         ${isBookmarked ? '★' : '☆'} Simpan
