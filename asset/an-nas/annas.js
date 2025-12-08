@@ -69,7 +69,7 @@
       style="font-size:13px;color:#555;vertical-align:middle;">00:00 / 00:00</span>
 
     <audio id="surah-annas-audio" preload="metadata" style="display:none">
-      <source src="https://everyayah.com/data/Alafasy_128kbps/114.mp3" type="audio/mpeg">
+      <source src="https://cdn.jsdelivr.net/gh/ilmualam/quran-tool@main/asset/an-nas/surah-an-nas-alafasy.mp3" type="audio/mpeg">
       Browser anda tidak menyokong audio HTML5.
     </audio>
   </div>
