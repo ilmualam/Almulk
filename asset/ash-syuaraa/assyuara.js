@@ -24,7 +24,7 @@
     const SURAH_NUMBER = 26; // Ash-Shu'ara
     const TOTAL_AYAT = 227;
     const API_BASE = 'https://api.alquran.cloud/v1';
-    const AUDIO_CDN = 'https://cdn.islamic.network/quran/audio-surah/128';
+    const AUDIO_CDN = 'https://cdn.islamic.network/quran/audio/128';
     
     // Qari options with proper identifiers
     const QARIS = [
