@@ -143,9 +143,9 @@
                 .ilm-sr-ayat-card{background:#f8f9fa;padding:20px;margin:16px 0;border-radius:8px;border-left:4px solid #249749;transition:transform 0.2s}
                 .ilm-sr-ayat-card.active{background:#e8f5e8;transform:translateX(8px)}
                 .ilm-sr-ayat-number{color:#249749;font-weight:700;font-size:0.9rem;margin-bottom:8px}
-                .ilm-sr-ayat-arabic{font-size:1.8rem;line-height:2.2;text-align:right;color:#0c3808;margin:12px 0;font-family:'Amiri','Traditional Arabic',serif}
-                .ilm-sr-ayat-rumi{font-size:1rem;line-height:1.8;color:#555;margin:12px 0;font-style:italic}
-                .ilm-sr-ayat-translation{font-size:0.95rem;line-height:1.7;color:#333;margin:12px 0}
+                .ilm-sr-ayat-arabic{font-size:1.8rem;font-weight:600;line-height:2.2;text-align:right;color:#0c3808;margin:12px 0;font-family:'Amiri','Traditional Arabic',serif}
+                .ilm-sr-ayat-rumi{font-size:15px;line-height:1.3;color:#0c3803;margin:12px 0;font-style:italic;border:1px dashed;border-color:#0c3803;padding:10px;margin:10px;background-color:#f0ffc7;}
+                .ilm-sr-ayat-translation{font-size:15px;line-height:1.3;color:#0c3808;margin:12px 0}
                 .ilm-sr-player{background:#f8f9fa;padding:20px;border-top:2px solid #249749}
                 .ilm-sr-player-info{display:flex;justify-content:space-between;margin-bottom:12px;font-size:0.9rem;color:#666}
                 #ilm-sr-current-ayat{font-weight:700;color:#249749}
