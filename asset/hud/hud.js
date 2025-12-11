@@ -442,7 +442,7 @@ const surahData = [
 
   function shareVerse(verseNumber) {
     const verse = surahData[verseNumber - 1];
-    const text = `${verse.arabic}\n\n${verse.translation}\n\n(Surah Hud, Ayat ${verseNumber})\n\nhttps://www.ilmualam.com/surah-hud#verse-${verseNumber}`;
+    const text = `${verse.arabic}\n\n${verse.translation}\n\n(Surah Hud, Ayat ${verseNumber})\n\nhttps://www.ilmualam.com/2025/12/surah-hud-rumi.html#verse-${verseNumber}`;
     
     if (navigator.share) {
       navigator.share({
