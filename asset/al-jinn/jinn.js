@@ -82,7 +82,7 @@
         container.innerHTML = `
             <div class="ilm-x-reader">
                 <div class="ilm-x-reader-header">
-                    <h3>🎧 Pembaca Surah Al-Jinn Interaktif</h3>
+                    <h3>🎧 Tool Interaktif Surah Al-Jinn</h3>
                     <div class="ilm-x-controls">
                         <button class="ilm-x-btn ilm-x-btn-search" onclick="window.ilmJinnReader.toggleSearch()" title="Cari Ayat">🔍</button>
                         <button class="ilm-x-btn ilm-x-btn-bookmarks" onclick="window.ilmJinnReader.showBookmarks()" title="Lihat Bookmark">📑 <span class="ilm-x-bookmark-count">0</span></button>
@@ -180,8 +180,8 @@
                 <div class="ilm-x-rumi">${v.rumi}</div>
                 <div class="ilm-x-translation">${v.malay}</div>
                 <div class="ilm-x-verse-actions">
-                    <button class="ilm-x-btn-small" onclick="window.ilmJinnReader.playVerse(${idx})" title="Main Audio">🔊 Dengar</button>
-                    <button class="ilm-x-btn-small" onclick="window.ilmJinnReader.copyVerse(${idx})" title="Salin">📋 Salin</button>
+                    <button class="ilm-x-btn-small" onclick="window.ilmJinnReader.playVerse(${idx})" title="Main Audio">🔊 Audio</button>
+                    <button class="ilm-x-btn-small" onclick="window.ilmJinnReader.copyVerse(${idx})" title="Salin">📋 Copy</button>
                 </div>
             </div>
         `).join('');
@@ -291,7 +291,7 @@
         const btn = document.querySelector('.ilm-x-btn-play');
         if (btn) {
             btn.textContent = isPlaying ? '⏸' : '▶️';
-            btn.title = isPlaying ? 'Jeda' : 'Main';
+            btn.title = isPlaying ? 'Pause' : 'Play';
         }
     }
     
