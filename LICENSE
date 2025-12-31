@@ -1,6 +1,23 @@
+📜 License
+Distributed under the MIT License. See LICENSE for more information.
+
+📬 Contact
+Ilmualam - GitHub Profile
+
+Project Link: https://github.com/ilmualam/quran-tool
+
+<div align="center"> <small>Made with ❤️ for the Ummah by Ilmualam</small> </div>
+
+-----
+
+### 2\. The License
+
+Create a file named `LICENSE` in your repository and paste the text below. This is the standard **MIT License**, which is highly professional, widely accepted, and perfect for open-source projects where you want to retain copyright while allowing others to use the code.
+
+```text
 MIT License
 
-Copyright (c) 2025 Asyraf Ramlie
+Copyright (c) 2025 Ilmualam
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +36,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
